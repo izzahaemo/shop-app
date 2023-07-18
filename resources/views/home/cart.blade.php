@@ -43,10 +43,57 @@
                     @endforeach
                 </tbody>
             </table>
-            <h5 class="card-title">Total = {{$total}}</h5>
+            <div class='row'>
+                <h5 class="col-8 card-title">Total = {{$total}}</h5>
+                <button type="button" class="btn btn-primary col-4" data-bs-toggle="modal"
+                    data-bs-target="#modalCheckout">
+                    <i class="bi bi-cart-plus-fill"></i>
+                    Go checkout
+                </button>
+            </div>
             @else
             <h5 class="card-title">You don't have any cart, go shop</h5>
             @endif
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal Checkout -->
+<div class="modal fade" id="modalCheckout" tabindex="-1" aria-labelledby="modalCheckoutLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modalCheckoutLabel">Checkout</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{{route('order_create')}}" method="post">
+                @csrf
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="formName" class="form-label">Name</label>
+                        <input name="name" type="text" class="form-control" id="formName" placeholder="Input Name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="formphone" class="form-label">Phone Number</label>
+                        <input name="phone" type="text" class="form-control" id="formphone"
+                            placeholder="Input Phone Number">
+                    </div>
+                    <div class="mb-3">
+                        <label for="formAddress" class="form-label">Address</label>
+                        <textarea name="address" class="form-control" id="exampleFormControlTextarea1"
+                            rows="3"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <h5>Total = {{$total}}</h5>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" id="gross_amount" name="gross_amount" value="{{$total}}">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Go Checkout</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

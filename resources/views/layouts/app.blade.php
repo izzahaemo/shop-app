@@ -86,11 +86,6 @@
                         </li>
                         @endif
                         @else
-                        @if (Auth::check() && Auth::user()->hasPermission('cart-read'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('cart') }}">{{ __('Your Charts') }}</a>
-                        </li>
-                        @endif
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -98,6 +93,10 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                @if (Auth::check() && Auth::user()->hasPermission('cart-read'))
+                                <a class="dropdown-item" href="{{ route('cart') }}">{{ __('Your Charts') }}</a>
+                                @endif
+                                <a class="dropdown-item" href="{{ route('order') }}">{{ __('Your Order') }}</a>
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
