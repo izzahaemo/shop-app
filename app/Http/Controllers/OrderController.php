@@ -48,8 +48,10 @@ class OrderController extends Controller
         {
             $product[$product_id]['name'] = $cart->product->name;
             $product[$product_id]['price'] = $cart->product->price;
+            $product[$product_id]['amount'] = $cart->amount;
             $product_id++;
         }
+        Cart::where('user_id', $user_id)->delete();
         $productJson = json_encode($product);
 
         Order::create([
@@ -67,6 +69,7 @@ class OrderController extends Controller
     public function checkout(Order $order)
     {
         $categories = Category::all();
+        $products = json_decode($order->products);
         // Set your Merchant Server Key
         \Midtrans\Config::$serverKey = config('midtrans.server_key');
         // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
@@ -88,8 +91,9 @@ class OrderController extends Controller
             ),
         );
         
+
         $snapToken = \Midtrans\Snap::getSnapToken($params);
-        return view('home.checkout', compact('snapToken', 'order','categories'));
+        return view('home.checkout', compact('snapToken', 'order','categories','products'));
     }
 
     public function callback(Request $request)

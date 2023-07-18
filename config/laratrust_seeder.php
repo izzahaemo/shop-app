@@ -20,7 +20,7 @@ return [
         ],
         'member' => [
             'cart' => 'c,r,u,d',
-            'order' => 'c,r,u',
+            'order' => 'c,r,u,d',
         ]
     ],
 

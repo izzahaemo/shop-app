@@ -27,6 +27,24 @@
                     <td> : {{$order->gross_amount}}</td>
                 </tr>
             </table>
+            <br>
+            <h5>Product</h5>
+            <table>
+                @foreach($products as $product)
+                <tr>
+                    <td>Name</td>
+                    <td> : {{$product->name}}</td>
+                </tr>
+                <tr>
+                    <td>Price</td>
+                    <td> : {{$product->price}}</td>
+                </tr>
+                <tr>
+                    <td>Amount</td>
+                    <td> : {{$product->amount}}</td>
+                </tr>
+                @endforeach
+            </table>
             <button class="btn btn-primary mt-3" id="pay-button">Pay Now</button>
         </div>
     </div>
