@@ -37,8 +37,10 @@ Route::middleware('auth')->group( function () {
     Route::post('/cart_add/{product}' , [CartController::class, 'add'])->name('cart_add');
     Route::patch('/cart_update/{cart}' , [CartController::class, 'update'])->name('cart_update');
     Route::delete('/cart_delete/{cart}' , [CartController::class, 'delete'])->name('cart_delete');
-
+    
     Route::get('/order' , [OrderController::class, 'index'])->name('order');
     Route::post('/order_create' , [OrderController::class, 'create'])->name('order_create');
+    Route::patch('/order_update/{order}' , [OrderController::class, 'update'])->name('order_update');
+    Route::delete('/order_delete/{order}' , [OrderController::class, 'delete'])->name('order_delete');
     Route::get('/checkout/{order}' , [OrderController::class, 'checkout'])->name('checkout');
 });

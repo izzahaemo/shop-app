@@ -65,6 +65,37 @@ class OrderController extends Controller
 
         return Redirect::route('order');
     }
+    
+    public function update(Request $request, Order $order)
+    {
+        if(!Auth::user()->hasPermission('order-update'))
+        {
+            return Redirect::route('home');
+        }
+
+        $request->validate([
+            'track' => 'required',
+        ]);
+
+        $order->update([
+            'status' => 'Shipped',
+            'track' => $request->track
+        ]);
+
+
+        return Redirect::route('order');
+    }
+
+    public function delete(Order $order)
+    {
+        if(!Auth::user()->hasPermission('order-delete'))
+        {
+            return Redirect::route('home');
+        }
+
+        $order->delete();
+        return Redirect::route('order');
+    }
 
     public function checkout(Order $order)
     {
