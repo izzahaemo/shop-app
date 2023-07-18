@@ -23,7 +23,7 @@
                 <tbody>
                     @foreach ($carts as $cart)
                     <tr>
-                        <th scope="row"></th>
+                        <th scope="row">{{ $loop->index+1 }}</th>
                         <td>{{ $cart->product->name }}</td>
                         <td>{{ $cart->product->price }}</td>
                         <td>{{ $cart->amount }}</td>

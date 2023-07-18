@@ -25,10 +25,12 @@
                 <tbody>
                     @foreach ($categories as $category)
                     <tr>
-                        <th scope="row">{{$category->id}}</th>
+                        <th scope="row">{{ $loop->index+1 }}</th>
                         <td>{{ $category->name }}</td>
-                        <td> </td>
-                        <td> <button type="button" class="btn btn-primary me-2" data-bs-toggle="modal"
+                        <td>{{ $category->count }}</td>
+                        <td>
+                            @if($category->count == 0)
+                            <button type="button" class="btn btn-primary me-2" data-bs-toggle="modal"
                                 data-bs-target="#modalEdit{{$category->id}}">
                                 <i class="bi bi-pencil-fill me-2"></i>
                                 Edit
@@ -38,6 +40,7 @@
                                 <i class="bi bi-trash3-fill me-2"></i>
                                 Delete
                             </button>
+                            @endif
                         </td>
                     </tr>
                     @endforeach

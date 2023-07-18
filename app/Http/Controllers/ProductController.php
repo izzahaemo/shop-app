@@ -110,6 +110,15 @@ class ProductController extends Controller
             return Redirect::route('home');
         }
         $categories = Category::all();
+
+
+        foreach($categories as $category)
+        {
+            $id = $category->id;
+            $products = Product::where('category_id', '=', $id)->get();
+            $category['count'] = count($products);
+        }
+
         return view('admin.category', compact('categories'));
     }
 

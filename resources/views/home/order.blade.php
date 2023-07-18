@@ -22,7 +22,7 @@
                 <tbody>
                     @foreach ($orders as $order)
                     <tr>
-                        <th scope="row"></th>
+                        <th scope="row">{{ $loop->index+1 }}</th>
                         <td>{{$order->created_at}}</td>
                         <td>{{ $order->gross_amount}}</td>
                         <td>{{ $order->status}}</td>

@@ -26,7 +26,7 @@
                 <tbody>
                     @foreach ($products as $product)
                     <tr>
-                        <th scope="row">{{$product->id}}</th>
+                        <th scope="row">{{ $loop->index+1 }}</th>
                         <td>{{ $product->name }}</td>
                         <td>{{ $product->price }}</td>
                         <td> <button type="button" class="btn btn-primary me-2" data-bs-toggle="modal"
