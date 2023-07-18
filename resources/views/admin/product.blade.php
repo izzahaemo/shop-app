@@ -105,7 +105,7 @@
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Product {{$product->title}}</h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Product {{$product->name}}</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="{{ route('product_update',$product) }}" method="post" enctype="multipart/form-data">
@@ -125,8 +125,11 @@
                     <div class="mb-3">
                         <label for="formPrice" class="form-label">Category</label>
                         <select name="category_id" id="formPrice" class="form-select" aria-label="Category">
+                            <option value="{{$product->category_id}}">{{$product->category->name}}</option>
                             @foreach ($categories as $category)
+                            @if($category->id != $product->category_id)
                             <option value="{{$category->id}}">{{$category->name}}</option>
+                            @endif
                             @endforeach
                         </select>
                     </div>
@@ -158,7 +161,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Movies {{$product->name}}</h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Product {{$product->name}}</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="{{ route('product_delete',$product) }}" method="post">
