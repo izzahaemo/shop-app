@@ -22,6 +22,7 @@ Auth::routes();
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/products', [HomeController::class, 'products'])->name('products');
+Route::post('/search', [HomeController::class, 'search'])->name('search');
 Route::get('/category/{category}', [HomeController::class, 'category'])->name('category');
 Route::get('/product/{product}', [HomeController::class, 'product'])->name('product');
 
