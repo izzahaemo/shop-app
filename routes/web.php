@@ -25,13 +25,16 @@ Route::get('/products', [HomeController::class, 'products'])->name('products');
 Route::get('/category/{category}', [HomeController::class, 'category'])->name('category');
 Route::get('/product/{product}', [HomeController::class, 'product'])->name('product');
 
-
-
 Route::middleware('auth')->group( function () {
     Route::get('/product_admin', [ProductController::class, 'index'])->name('product_admin');
     Route::post('/product_create' , [ProductController::class, 'create'])->name('product_create');
     Route::patch('/product_update/{product}' , [ProductController::class, 'update'])->name('product_update');
     Route::delete('/product_delete/{product}' , [ProductController::class, 'delete'])->name('product_delete');
+
+    Route::get('/category_admin', [ProductController::class, 'category'])->name('category_admin');
+    Route::post('/category_create' , [ProductController::class, 'category_create'])->name('category_create');
+    Route::patch('/category_update/{category}' , [ProductController::class, 'category_update'])->name('category_update');
+    Route::delete('/category_delete/{category}' , [ProductController::class, 'category_delete'])->name('category_delete');
     
     Route::get('/cart' , [CartController::class, 'index'])->name('cart');
     Route::post('/cart_add/{product}' , [CartController::class, 'add'])->name('cart_add');
