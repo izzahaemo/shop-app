@@ -61,6 +61,46 @@ class OrderController extends Controller
             'products' => $productJson 
         ]);
 
-        return Redirect::route('cart');
+        return Redirect::route('order');
+    }
+
+    public function checkout(Order $order)
+    {
+        $categories = Category::all();
+        // Set your Merchant Server Key
+        \Midtrans\Config::$serverKey = config('midtrans.server_key');
+        // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
+        \Midtrans\Config::$isProduction = config('midtrans.is_production');
+        // Set sanitization on (default)
+        \Midtrans\Config::$isSanitized = true;
+        // Set 3DS transaction for credit card to true
+        \Midtrans\Config::$is3ds = true;
+        
+        $params = array(
+            'transaction_details' => array(
+                'order_id' => $order->id,
+                'gross_amount' => $order->gross_amount,
+            ),
+            'customer_details' => array(
+                'first_name' => $order->name,
+                'last_name' => '',
+                'phone' => $order->phone,
+            ),
+        );
+        
+        $snapToken = \Midtrans\Snap::getSnapToken($params);
+        return view('home.checkout', compact('snapToken', 'order','categories'));
+    }
+
+    public function callback(Request $request)
+    {
+        $serverKey = config('midtrans.server_key');
+        $hashed = hash("sha512", $request->order_id.$request->status_code.$request->gross_amount.$serverKey);
+        if($hashed == $request->signature_key){
+            if($request->transaction_status == 'capture' or $request->transaction_status == 'settlement'){
+                $order = Order::find($request->order_id);
+                $order->update(['status' => 'Paid']);
+            }
+        }
     }
 }

@@ -40,4 +40,5 @@ Route::middleware('auth')->group( function () {
 
     Route::get('/order' , [OrderController::class, 'index'])->name('order');
     Route::post('/order_create' , [OrderController::class, 'create'])->name('order_create');
+    Route::get('/checkout/{order}' , [OrderController::class, 'checkout'])->name('checkout');
 });

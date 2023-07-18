@@ -32,11 +32,10 @@
                                 <i class="bi bi-pencil-fill me-2"></i>
                                 Check
                             </button>
-                            <button type="button" class="btn btn-primary me-2" data-bs-toggle="modal"
-                                data-bs-target="#modalEdit{{$order->id}}">
-                                <i class="bi bi-pencil-fill me-2"></i>
-                                Pay
-                            </button>
+                            <a href="{{ route('checkout',$order) }}" class="btn btn-primary me-2" id="pay-button">
+                                <i class="bi bi-credit-card-2-back-fill"></i>
+                                Pay Now
+                            </a>
                         </td>
                     </tr>
                     @endforeach
