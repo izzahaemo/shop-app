@@ -20,7 +20,13 @@ class OrderController extends Controller
         }
         $categories = Category::all();
         $user_id = Auth::id();
-        $orders = Order::where('user_id', $user_id)->get();
+        if(Auth::user()->hasPermission('order-update'))
+        {
+            $orders = Order::all();
+        } else 
+        {    
+            $orders = Order::where('user_id', $user_id)->get();
+        }   
         return view('home.order', compact('orders','categories'));
     }
 

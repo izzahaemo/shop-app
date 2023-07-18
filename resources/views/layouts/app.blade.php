@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-bs-theme="dark">
 
 <head>
     <meta charset="utf-8">
@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>Shop App</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
@@ -33,10 +33,10 @@
 
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light  shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    Shop App
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -52,6 +52,7 @@
                             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
                                 aria-expanded="false">Admin Menu</a>
                             <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{{ route('order') }}">{{ __('All Order') }}</a></li>
                                 <li><a class="dropdown-item" href="{{ route('product_admin') }}">Product</a></li>
                                 <li><a class="dropdown-item" href="{{ route('category_admin') }}">Category</a></li>
                             </ul>
@@ -104,8 +105,8 @@
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                 @if (Auth::check() && Auth::user()->hasPermission('cart-read'))
                                 <a class="dropdown-item" href="{{ route('cart') }}">{{ __('Your Charts') }}</a>
-                                @endif
                                 <a class="dropdown-item" href="{{ route('order') }}">{{ __('Your Order') }}</a>
+                                @endif
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
@@ -117,6 +118,34 @@
                             </div>
                         </li>
                         @endguest
+                        <li class="nav-item dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                <i class="bi bi-gear-fill theme-icon-active" data-theme-icon-active="bi-gear-fill"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><button class="dropdown-item d-flex align-itmes-center" type="button"
+                                        data-bs-theme-value="light">
+                                        <i class="bi bi-sun-fill me-2 opacity-50" data-theme-icon="bi-sun-fill"></i>
+                                        Light
+                                    </button>
+                                </li>
+                                <li><button class="dropdown-item d-flex align-itmes-center" type="button"
+                                        data-bs-theme-value="dark">
+                                        <i class="bi bi-moon-stars-fill me-2 opacity-50"
+                                            data-theme-icon="bi-moon-stars-fill"></i>
+                                        Dark
+                                    </button>
+                                </li>
+                                <li><button class="dropdown-item d-flex align-itmes-center" type="button"
+                                        data-bs-theme-value="auto">
+                                        <i class="bi bi-circle-half me-2 opacity-50"
+                                            data-theme-icon="bi-circle-half"></i>
+                                        Auto
+                                    </button>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -131,13 +160,12 @@
         <div class="container">
             <footer class="py-3 my-4">
                 <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-                    <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Home</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Features</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Pricing</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">FAQs</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">About</a></li>
+                    <li class="nav-item"><a href="{{ url('/') }}" class="nav-link px-2 text-body-secondary">Home</a>
+                    </li>
+                    <li class="nav-item"><a href="{{ route('products') }}"
+                            class="nav-link px-2 text-body-secondary">Products</a></li>
                 </ul>
-                <p class="text-center text-body-secondary">&copy; 2023 Company, Inc</p>
+                <p class="text-center text-body-secondary">&copy; 2023 Shop-App by Izzah, Inc</p>
             </footer>
         </div>
     </div>
