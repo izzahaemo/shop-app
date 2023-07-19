@@ -102,4 +102,66 @@ class ProductController extends Controller
         $product->delete();
         return Redirect::route('product_admin');
     }
+
+    public function category()
+    {
+        if(!Auth::user()->hasPermission('category-read'))
+        {
+            return Redirect::route('home');
+        }
+        $categories = Category::all();
+
+
+        foreach($categories as $category)
+        {
+            $id = $category->id;
+            $products = Product::where('category_id', '=', $id)->get();
+            $category['count'] = count($products);
+        }
+
+        return view('admin.category', compact('categories'));
+    }
+
+    public function category_create(Request $request)
+    {
+        if(!Auth::user()->hasPermission('category-create'))
+        {
+            return Redirect::route('home');
+        }
+
+        $request->validate([
+            'name' => 'required',
+        ]);
+
+        Category::create([
+            'name'=> $request->name,
+        ]);
+
+        return Redirect::route('category_admin');
+    }
+
+    public function category_update(Request $request, Category $category)
+    {
+        if(!Auth::user()->hasPermission('category-update'))
+        {
+            return Redirect::route('home');
+        }
+
+        $category->update([
+            'name'=> $request->name,
+        ]);
+
+        return Redirect::route('category_admin');
+    }
+
+    public function category_delete(Category $category)
+    {
+        if(!Auth::user()->hasPermission('category-delete'))
+        {
+            return Redirect::route('home');
+        }
+
+        $category->delete();
+        return Redirect::route('category_admin');
+    }
 }

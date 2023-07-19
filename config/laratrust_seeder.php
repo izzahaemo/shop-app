@@ -19,7 +19,8 @@ return [
             'order' => 'r,u',
         ],
         'member' => [
-            'profile' => 'r,u',
+            'cart' => 'c,r,u,d',
+            'order' => 'c,r,d',
         ]
     ],
 

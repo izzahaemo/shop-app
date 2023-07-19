@@ -4,13 +4,17 @@
 
 <div class="album py-5 bg-body-tertiary">
     <div class="container">
-        @if (!$category)
+        @if ($category)
         <div class="p-2 text-center bg-body-tertiary rounded-3">
-            <h1 class="text-body-emphasis">All Products</h1>
+            <h1 class="text-body-emphasis">Product {{$category->name}}</h1>
+        </div>
+        @elseif ($search)
+        <div class="p-2 text-center bg-body-tertiary rounded-3">
+            <h1 class="text-body-emphasis">Search Product {{$search}}</h1>
         </div>
         @else
         <div class="p-2 text-center bg-body-tertiary rounded-3">
-            <h1 class="text-body-emphasis">Product {{$category->name}}</h1>
+            <h1 class="text-body-emphasis">All Products</h1>
         </div>
         @endif
 
